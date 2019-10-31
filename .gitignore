@@ -26,5 +26,5 @@ Temporary Items
 .vscode
 
 # Test file
-test*.txt
+test*.*
 result*.*
