@@ -3,6 +3,7 @@
 import argparse
 import os
 import sys
+import re
 
 
 class printColor:
@@ -13,7 +14,7 @@ class printColor:
 
 
 parser = argparse.ArgumentParser(
-    description='Search regex in input file.')
+    description='Search regex in input file. All match results will be stored in files [--name]*.rgxprslt')
 
 parser.add_argument('-i', '--input', metavar='',
                     help='input file with content, where to search')
@@ -47,7 +48,26 @@ if os.path.exists(inputFile) == False:
             os.path.abspath(inputFile)) + printColor.END
     sys.exit(1)
 
+file = open(inputFile, "r")
+content = file.read()
+
+print "Searching {} in {}".format(regex, os.path.abspath(inputFile))
+
+matches = re.findall(regex, content)
+
+if not matches:
+    print "No matches found."
+    sys.exit(0)
+
 print "Regex search finished " + printColor.GREEN + "successfully" + printColor.END + \
     " with results:"
+
+for i in range(0, len(matches)):
+    outputFile = "{}{}.rgxprslt".format(name, i)
+    result = open(outputFile, "w")
+    result.write(matches[i])
+    result.close()
+    print printColor.BLUE + \
+        "{}".format(os.path.abspath(outputFile)) + printColor.END
 
 sys.exit(0)
