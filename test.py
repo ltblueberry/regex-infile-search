@@ -26,10 +26,19 @@ class ScriptTest(unittest.TestCase):
         self.assertEqual(exit_message, messages.NO_MATCHES)
 
     def test_regex_match(self):
-        exit_message = script("test.txt", "#.*#", "test_regex_match")
+        name = "test_regex_match"
+        exit_message = script("test.txt", "#.*#", name)
         if exit_message != messages.DONE:
-            self.assertTrue(True)
+            self.assertTrue(False)
             return
+
+        checks = ["#TRY#", "#CHECK#", "#TEST#"]
+        for i in range(0, 3):
+            fileName = "{}{}.rgxprslt".format(name, i)
+            resultFile = open(fileName, "r")
+            content = resultFile.read()
+            if content != checks[i]:
+                self.assertTrue(False)
 
 
 if __name__ == '__main__':
