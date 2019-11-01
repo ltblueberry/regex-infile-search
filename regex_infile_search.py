@@ -13,54 +13,77 @@ class printColor:
     END = '\033[0m'
 
 
+class messages:
+    NONE_INPUT = "input file path is not defined"
+    NONE_REGEX = "regular expression is not defined"
+    NONE_NAME = "regular expression is not defined"
+    FILE_NOT_FOUND = "File {} was not found"
+    SEARCHING = "Searching {} in {}"
+    NO_MATCHES = "No matches found."
+    FINISHED = "Regex search finished " + printColor.GREEN + \
+        "successfully" + printColor.END + " with results:"
+    DONE = "done"
+
+
+need_print = False
+
+
+def print_if_needed(string):
+    if need_print:
+        print string
+
+
 def main(inputFile, regex, name):
     if inputFile is None:
-        print "-i, --input" + printColor.RED + \
-            "     input file path is not defined" + printColor.END
-        sys.exit(1)
+        exit_message = messages.NONE_INPUT
+        print_if_needed("-i, --input     " + printColor.RED +
+                        exit_message + printColor.END)
+        return exit_message
 
     if regex is None:
-        print "-r, --regex" + printColor.RED + \
-            "     regular expression is not defined" + printColor.END
-        sys.exit(1)
+        exit_message = messages.NONE_REGEX
+        print_if_needed("-r, --regex     " + printColor.RED +
+                        exit_message + printColor.END)
+        return exit_message
 
     if name is None:
-        print "-n, --name" + printColor.RED + \
-            "     regular expression is not defined" + printColor.END
-        sys.exit(1)
+        exit_message = messages.NONE_NAME
+        print_if_needed("-n, --name      " + printColor.RED +
+                        exit_message + printColor.END)
+        return exit_message
 
     if os.path.exists(inputFile) == False:
-        print printColor.RED + \
-            "File {} was not found".format(
-                os.path.abspath(inputFile)) + printColor.END
-        sys.exit(1)
+        exit_message = messages.FILE_NOT_FOUND
+        print_if_needed(printColor.RED +
+                        exit_message.format(os.path.abspath(inputFile)) + printColor.END)
+        return exit_message
 
     file = open(inputFile, "r")
     content = file.read()
 
-    print "Searching {} in {}".format(regex, os.path.abspath(inputFile))
+    print_if_needed(messages.SEARCHING.format(
+        regex, os.path.abspath(inputFile)))
 
     matches = re.findall(regex, content)
 
     if not matches:
-        print "No matches found."
-        sys.exit(0)
+        print_if_needed(messages.NO_MATCHES)
+        return messages.NO_MATCHES
 
-    print "Regex search finished " + printColor.GREEN + "successfully" + printColor.END + \
-        " with results:"
+    print_if_needed(messages.FINISHED)
 
     for i in range(0, len(matches)):
         outputFile = "{}{}.rgxprslt".format(name, i)
         result = open(outputFile, "w")
         result.write(matches[i])
         result.close()
-        print printColor.BLUE + \
-            "{}".format(os.path.abspath(outputFile)) + printColor.END
-
-    sys.exit(0)
+        print_if_needed(printColor.BLUE +
+                        "{}".format(os.path.abspath(outputFile)) + printColor.END)
+    return messages.DONE
 
 
 if __name__ == "__main__":
+    need_print = True
     parser = argparse.ArgumentParser(
         description='Search regex in input file. All match results will be stored in files [--name]*.rgxprslt')
 

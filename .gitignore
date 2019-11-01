@@ -31,4 +31,5 @@ Temporary Items
 # Test file
 test*.*
 !test.py
+!test.txt
 result*.*
