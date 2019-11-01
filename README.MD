@@ -17,13 +17,13 @@ or
 
 # Example
 Let's imagine we have **test.txt** file with big text.
-We want to find all **test.\*** strings in that file. We execute next command
+We want to find all **#.*#** strings in that file. We execute next command
 ```
-./regex_infile_search.py -i test.txt -r test.* -n test
+./regex_infile_search.py -i test.txt -r #.*# -n test
 ```
 And we get results in next files
 ```
-Searching test.* in /home/user/test.txt
+Searching #.*# in /home/user/test.txt
 Regex search finished successfully with results:
 /home/user/test0.rgxprslt
 /home/user/test1.rgxprslt

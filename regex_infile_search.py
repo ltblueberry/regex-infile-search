@@ -53,9 +53,9 @@ def main(inputFile, regex, name):
         return exit_message
 
     if os.path.exists(inputFile) == False:
-        exit_message = messages.FILE_NOT_FOUND
-        print_if_needed(printColor.RED +
-                        exit_message.format(os.path.abspath(inputFile)) + printColor.END)
+        exit_message = messages.FILE_NOT_FOUND.format(
+            os.path.abspath(inputFile))
+        print_if_needed(printColor.RED + exit_message + printColor.END)
         return exit_message
 
     file = open(inputFile, "r")

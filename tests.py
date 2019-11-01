@@ -1,4 +1,5 @@
 import unittest
+import os
 from regex_infile_search import main as script
 from regex_infile_search import messages
 
@@ -10,8 +11,10 @@ class ScriptTest(unittest.TestCase):
         self.assertEqual(exit_message, messages.NONE_INPUT)
 
     def test_input_not_found(self):
-        exit_message = script("nofile.txt", ".*", "test_input_not_found")
-        self.assertEqual(exit_message, messages.FILE_NOT_FOUND)
+        inputFile = "nofile.txt"
+        exit_message = script(inputFile, ".*", "test_input_not_found")
+        self.assertEqual(exit_message, messages.FILE_NOT_FOUND.format(
+            os.path.abspath(inputFile)))
 
     def test_regex_empty(self):
         exit_message = script("test.txt", None, "test_regex_empty")
