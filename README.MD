@@ -1,4 +1,4 @@
-# regex in file search
+# regex in file search [![Build Status](https://travis-ci.org/ltblueberry/regex-infile-search.svg?branch=master)](https://travis-ci.org/ltblueberry/regex-infile-search)
 It's a simple python script that search specified regular expression in specified input file and save all matches in result files.
 
 # Make executable
