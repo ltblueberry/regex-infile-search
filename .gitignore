@@ -30,6 +30,6 @@ Temporary Items
 
 # Test file
 test*.*
-!test.py
+!tests.py
 !test.txt
 result*.*
