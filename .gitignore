@@ -25,6 +25,10 @@ Temporary Items
 # VS Code
 .vscode
 
+# .pyc files
+*.pyc
+
 # Test file
 test*.*
+!test.py
 result*.*
