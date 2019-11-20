@@ -30,3 +30,9 @@ Regex search finished successfully with results:
 /home/user/test2.rgxprslt
 /home/user/test3.rgxprslt
 ```
+
+## License
+
+**[MIT License](LICENSE)**
+
+Copyright (c) 2019 [ltblueberry](https://github.com/ltblueberry)
